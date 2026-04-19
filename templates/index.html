@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task Manager</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 420px;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            color: white;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        form {
+            display: flex;
+            gap: 10px;
+        }
+
+        input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            background: #00c6ff;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0096c7;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        li {
+            background: rgba(255,255,255,0.2);
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.3s;
+        }
+
+        li:hover {
+            transform: scale(1.03);
+        }
+
+        .btns a {
+            margin-left: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            color: white;
+        }
+
+        .done {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Task Manager 🚀</h1>
+
+    <form action="/add" method="POST">
+        <input type="text" name="task" placeholder="Enter task">
+        <button>Add</button>
+    </form>
+
+    <ul>
+        {% for task in tasks %}
+        <li>
+
+            <span class="{% if task.done %}done{% endif %}">
+                {{ task.text }}
+            </span>
+
+            <div class="btns">
+                <a href="/complete/{{ task.id }}">✔</a>
+                <a href="/delete/{{ task.id }}">❌</a>
+            </div>
+
+        </li>
+        {% endfor %}
+    </ul>
+
+</div>
+
+</body>
+</html>
